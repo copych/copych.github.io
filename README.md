@@ -1,5 +1,1 @@
-<html>
-<head></head>
-<body>
-</body>
-</html>
+[Main Page](https://copych.github.io/)
