@@ -1,0 +1,17 @@
+{
+  "name": "FM-1 Ear Trainer",
+  "channel": "attested development",
+  "version": "0.0.15",
+  "sourceBranch": "feature-metronome-training-games",
+  "sourceRevision": "1982e644a4330aed660e003eef2ff44106b2b3f7",
+  "sourceRepository": "copych/FM1-Ear-Trainer",
+  "sourceDirty": false,
+  "baseRevision": "165d177a425944f3d30b0b669255a6ed0050c3a5",
+  "product": "FM-1_327008",
+  "files": {
+    "firmware/ear-trainer-dev.fwsc": "d9db084d63abc331cb873197b7ea1e1a1dec2239d5696a3a0fc870559b2ae44e",
+    "firmware/ear-trainer-dev-res.bin": "a952ed33d3abf49d2cfe354f9f75390a8cd014fc29285668d8f756efd7f3fff6",
+    "emu/melodee.wasm": "1b2e04cba2395839acd09229e1a51c65df39fab495ed91cccefecd9fad03da5e"
+  },
+  "workflowRun": "https://github.com/copych/FM1-Ear-Trainer/actions/runs/43756617716"
+}

@@ -1,0 +1,7 @@
+* text=auto
+feature-metronome-training-games/** -text
+*.wasm binary
+*.fwsc binary
+*.bin binary
+*.zip binary
+*.ttf binary

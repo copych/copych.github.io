@@ -1,0 +1,10 @@
+{
+  "version": "0.0.15",
+  "product": "FM-1_327008",
+  "pkg": {
+    "dual": "../../firmware/ear-trainer-dev.fwsc"
+  },
+  "sha256": {
+    "dual": "d9db084d63abc331cb873197b7ea1e1a1dec2239d5696a3a0fc870559b2ae44e"
+  }
+}

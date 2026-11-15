@@ -1,85 +1,28 @@
-
-name: Deploy all branches to GitHub Pages
-
+name: Publish verified branch installers
 on:
   push:
-  delete:
+    branches: [main]
   workflow_dispatch:
-
 permissions:
   contents: read
   pages: write
   id-token: write
-
 concurrency:
   group: github-pages
   cancel-in-progress: false
-
 jobs:
   deploy:
-    if: github.event_name != 'delete' || github.event.ref_type == 'branch'
-    runs-on: ubuntu-latest
-
+    runs-on: ubuntu-24.04
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Assemble website
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          mkdir -p _site
-
-          git fetch origin \
-            '+refs/heads/*:refs/remotes/origin/*' \
-            --prune
-
-          while IFS= read -r branch; do
-            name="${branch#origin/}"
-
-            # Main branch goes to website root.
-            if [[ "$name" == "main" ]]; then
-              target="_site"
-            else
-              target="_site/$name"
-            fi
-
-            mkdir -p "$target"
-
-            # Export branch contents without .git.
-            git archive "refs/remotes/$branch" |
-              tar -x -C "$target"
-
-            # Avoid publishing workflow metadata.
-            rm -rf "$target/.github"
-
-            echo "Published $name -> $target"
-          done < <(
-            git for-each-ref \
-              --format='%(refname:short)' \
-              refs/remotes/origin/ |
-            grep -v '^origin/HEAD$' |
-            sort -r
-          )
-
-          # Disable Jekyll processing.
-          touch _site/.nojekyll
-
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload website
-        uses: actions/upload-pages-artifact@v3
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Validate source identity, files and firmware hashes
+        run: python3 tools/assemble-pages.py
+      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa
         with:
           path: _site
-
       - name: Deploy website
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e
